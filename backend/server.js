@@ -9,7 +9,7 @@ const app = express();
 const router = express.Router();
 
 //this is out MondoDB database
-const dbRoute = "mongodb://jelo:a9bc839993@ds151382.mlab.com:51382/jelotest";
+const dbRoute = "https://downloads.mongodb.org/linux/mongodb-shell-linux-x86_64-ubuntu1804-4.0.6.tgz"
 
 //connects our backend code with the database
 mongoose.connect(
