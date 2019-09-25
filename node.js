@@ -74,20 +74,16 @@ client.connect('mongodb://localhost:27017/EmployeeDB', (err, db) =>
 );*/
 
 app.post('/addemployee', (req, resp) => {
-  var id = req.params.id;
-  id = id + '';
+  var id = req.body['id'];
   console.log(id);
-  var ename = req.params.ename;
-  ename = ename + '';
+  var ename = req.body['ename'];
   console.log(ename);
-  var job = req.params.job;
-  job = job + '';
+  var job = req.body['job'];
   console.log(job);
-  var employee = req.params.employee;
-  employee = employee + '';
-  console.log(employee);
+  var salary = req.body['salary'];
+  console.log(salary);
   //var row = req.body;
-  var row = { id: id, ename: ename, job: job, emp: employee };
+  var row = { id: id, ename: ename, job: job, salary: salary };
   mongoClient.connect(url, function(err, db) {
     if (!err) {
       //row = JSON.stringify(row);
@@ -107,7 +103,9 @@ app.post('/addemployee', (req, resp) => {
 });
 
 app.delete('/deleteemployee/:id', (req, resp) => {
-  var id = req.body;
+  var id = req.params.id;
+  id = id + '';
+  console.log(id);
   mongoClient.connect(url, function(err, db) {
     if (!err) {
       //row = JSON.stringify(row);
@@ -121,15 +119,18 @@ app.delete('/deleteemployee/:id', (req, resp) => {
 });
 
 app.put('/updateemployee', (req, resp) => {
-  //var id = req.body;
+  var ename = req.body['ename'];
+  console.log(ename);
+  var job = req.body['job'];
+  console.log(job);
   mongoClient.connect(url, function(err, db) {
     if (!err) {
       //row = JSON.stringify(row);
       var collection = db.collection('tblEmployees');
       //Update Row
       collection.update(
-        { ename: 'Raj' },
-        { $set: { job: 'Architect' } },
+        { ename: ename },
+        { $set: { job: job } },
         (err, result) =>
           console.log(!err ? `Row updated successfully` : `Not Updated`)
       );
