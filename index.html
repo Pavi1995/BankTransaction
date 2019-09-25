@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+      //var url = 'http://localhost:9002/employees';
+      $(document).ready(function() {
+        $('#b1').click(function() {
+          var id = $('#id1').val();
+          var url = 'http://localhost:9002/employees/' + id;
+          $.getJSON(url, function(row) {
+            $('#ename').val(row.ename);
+            $('#job').val(row.job);
+            $('#salary').val(row.salary);
+          });
+        });
+        /*$.getJSON(url, function(rows) {
+          $.each(rows, function(key, value) {
+            var row = value;
+            $('<li>', { text: row.ename }).appendTo($('#employees'));
+          });
+        });*/
+        $('#b2').click(function() {
+          var url = 'http://localhost:9002/addemployee';
+          var id = $('#id1').val();
+          console.log(id);
+          var ename = $('#ename').val();
+          console.log(ename);
+          var job = $('#job').val();
+          console.log(job);
+          var salary = $('#salary').val();
+          console.log(salary);
+          row = { id: id, ename: ename, job: job, salary: salary };
+          $.post(url, row);
+        });
+        $('#b3').click(function() {
+          var id = $('#id1').val();
+          var url = 'http://localhost:9002/deleteemployee/' + id;
+          console.log(id);
+          $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: console.log(`Success...`)
+          });
+        });
+        $('#b4').click(function() {
+          var ename = $('#ename').val();
+          var job = $('#job').val();
+          var url = 'http://localhost:9002/updateemployee';
+          console.log(ename);
+          $.ajax({
+            url: url,
+            type: 'PUT',
+            data: { ename: ename, job: job },
+            success: console.log(`Success...`)
+          });
+        });
+      });
+      /*function f1() {
+        alert(`Hello from f1`);
+      }
+      function f2() {
+        alert(`Hello from f2`);
+      }
+      $(document).ready(function() {
+        //alert(`Welcome to jquery`);
+        /*$('#b1,#b2').click(function() {
+          $('#txt1').val($(this).val() + ' button clicked');
+        });*/
+
+      //$('#b1').click(function() {
+      //$('#span1').html(`Hello`);
+      //$('#txt1').val(`Hello`);
+      //$('#txt1').val($(this).val());
+      /*$('#b1').click(function() {
+          f1();
+        });
+        $('#b2').click(function() {
+          f2();
+        });
+      });*/
+      /*$('#b2').click(function() {
+          //$('#txt1').val('');
+          $('#txt1').val($(this).val());
+        });*/
+      //});*/
+    </script>
+  </head>
+  <body>
+    <h1>Demo to read Web API</h1>
+    <!--<ul id="employees"></ul>-->
+    <!--<button id="b1" value="accept">Accept</button>
+    <button id="b2" value="reject">Reject</button>
+     <button id="b1">Say Hello</button>
+    <button id="b2">Clear Message</button> -->
+    <hr />
+    Employee ID : <input type="text" id="id1" />
+    <button id="b1">Search</button> <button id="b2">Add</button>
+    <button id="b3">Delete</button> <button id="b4">Update</button>
+    <br />
+    Ename : <input type="text" id="ename" />
+    <br />
+    Job : <input type="text" id="job" />
+    <br />
+    Salary : <input type="text" id="salary" />
+    <br />
+
+    <!-- <input type="text" id="txt1" /> -->
+    <!-- <span id="span1"></span> -->
+  </body>
+</html>
